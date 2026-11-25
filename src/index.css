@@ -1,0 +1,575 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Be Vietnam Pro', system-ui, sans-serif;
+    --font-rounded: 'Nunito', 'Be Vietnam Pro', system-ui, sans-serif;
+    --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: #0b0704;
+    color: #fef3c7;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-rounded {
+  font-family: var(--font-rounded);
+}
+
+.font-mono-num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Luxury Metallic Gold & Champagne-Bronze Surfaces matching reference */
+.gold-metallic-frame {
+  background: linear-gradient(
+    180deg,
+    #fae9bf 0%,
+    #ddb067 18%,
+    #885826 50%,
+    #452810 82%,
+    #c7954c 100%
+  );
+}
+
+.bronze-console-bg {
+  background:
+    radial-gradient(ellipse at 50% 44%, rgba(255, 224, 165, 0.28) 0%, transparent 56%),
+    linear-gradient(
+      180deg,
+      #8e6238 0%,
+      #5d381b 16%,
+      #7c522c 44%,
+      #cfa06a 76%,
+      #9a6b3d 92%,
+      #593418 100%
+    );
+}
+
+.gold-bezel-ring {
+  background: conic-gradient(
+    from 180deg at 50% 50%,
+    #fae9bc 0deg,
+    #bd8840 55deg,
+    #523012 120deg,
+    #f6dba0 180deg,
+    #976327 245deg,
+    #41230b 305deg,
+    #fae9bc 360deg
+  );
+}
+
+.bronze-chamber-bg {
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    #8a5a2b 0%,
+    #47270e 48%,
+    #1c0c03 100%
+  );
+  box-shadow: inset 0 8px 24px rgba(0, 0, 0, 0.78);
+}
+
+.crimson-pot-bg {
+  background: linear-gradient(180deg, #620615 0%, #3f020b 52%, #1d0004 100%);
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.9), 0 1px 0 rgba(251, 211, 141, 0.45);
+}
+
+.gold-bet-btn {
+  background: linear-gradient(
+    180deg,
+    #7b5830 0%,
+    #4c3116 46%,
+    #190d04 50%,
+    #0e0702 100%
+  );
+  box-shadow:
+    inset 0 1px 1px rgba(255, 234, 180, 0.65),
+    0 5px 14px rgba(0, 0, 0, 0.78);
+}
+
+.gold-bet-btn:hover:not(:disabled) {
+  background: linear-gradient(
+    180deg,
+    #956b3b 0%,
+    #5e3d1b 46%,
+    #251306 50%,
+    #170b03 100%
+  );
+  box-shadow:
+    inset 0 1px 2px rgba(255, 240, 195, 0.85),
+    0 0 18px rgba(245, 185, 66, 0.5);
+}
+
+.gold-text-gradient {
+  background: linear-gradient(180deg, #fffbe6 0%, #f7d996 48%, #c98d34 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tai-win-glow {
+  text-shadow:
+    0 0 14px rgba(253, 224, 71, 0.95),
+    0 0 32px rgba(245, 158, 11, 0.85),
+    0 0 56px rgba(234, 179, 8, 0.6);
+}
+
+.tai-black-text {
+  color: #080502;
+  text-shadow:
+    0 0 10px rgba(253, 224, 71, 0.92),
+    0 0 22px rgba(245, 158, 11, 0.8),
+    0 1px 2px rgba(254, 240, 138, 0.95);
+}
+
+.tai-black-win-glow {
+  color: #050301;
+  text-shadow:
+    0 0 14px rgba(254, 240, 138, 1),
+    0 0 30px rgba(250, 204, 21, 0.98),
+    0 0 52px rgba(245, 158, 11, 0.9);
+}
+
+@keyframes dice-tumble-a {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  20% { transform: translate3d(-12px, -16px, 0) rotate(-75deg) scale(1.08); }
+  45% { transform: translate3d(14px, 10px, 0) rotate(130deg) scale(0.95); }
+  70% { transform: translate3d(-10px, 14px, 0) rotate(240deg) scale(1.06); }
+  100% { transform: translate3d(0, 0, 0) rotate(360deg) scale(1); }
+}
+
+@keyframes dice-tumble-b {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  25% { transform: translate3d(16px, -12px, 0) rotate(95deg) scale(1.07); }
+  50% { transform: translate3d(-14px, -8px, 0) rotate(-140deg) scale(0.94); }
+  75% { transform: translate3d(10px, 16px, 0) rotate(220deg) scale(1.05); }
+  100% { transform: translate3d(0, 0, 0) rotate(-360deg) scale(1); }
+}
+
+@keyframes dice-tumble-c {
+  0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  22% { transform: translate3d(0, -18px, 0) rotate(110deg) scale(1.09); }
+  48% { transform: translate3d(-16px, 12px, 0) rotate(215deg) scale(0.96); }
+  74% { transform: translate3d(15px, -10px, 0) rotate(305deg) scale(1.04); }
+  100% { transform: translate3d(0, 0, 0) rotate(360deg) scale(1); }
+}
+
+@keyframes win-burst {
+  0%, 100% {
+    box-shadow: inset 0 0 30px rgba(250, 204, 21, 0.38), 0 0 24px rgba(245, 158, 11, 0.45);
+  }
+  50% {
+    box-shadow: inset 0 0 55px rgba(253, 224, 71, 0.65), 0 0 42px rgba(251, 191, 36, 0.78);
+  }
+}
+
+.animate-dice-a {
+  animation: dice-tumble-a 0.42s linear infinite;
+}
+
+.animate-dice-b {
+  animation: dice-tumble-b 0.38s linear infinite;
+}
+
+.animate-dice-c {
+  animation: dice-tumble-c 0.46s linear infinite;
+}
+
+.animate-win-burst {
+  animation: win-burst 1.2s ease-in-out infinite;
+}
+
+@keyframes bowl-shake {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  15% { transform: translate3d(-5px, -3px, 0) rotate(-1.5deg); }
+  30% { transform: translate3d(5px, 2px, 0) rotate(1.5deg); }
+  45% { transform: translate3d(-4px, 3px, 0) rotate(-1deg); }
+  60% { transform: translate3d(4px, -2px, 0) rotate(1deg); }
+  75% { transform: translate3d(-3px, 2px, 0) rotate(-0.8deg); }
+  90% { transform: translate3d(3px, -1px, 0) rotate(0.8deg); }
+}
+
+.animate-bowl-shake {
+  animation: bowl-shake 0.34s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-dice-a,
+  .animate-dice-b,
+  .animate-dice-c,
+  .animate-win-burst,
+  .animate-bowl-shake {
+    animation: none !important;
+  }
+}
+
+/* Phone Landscape Optimization (covers all phones 320px–560px height in landscape) */
+@media (orientation: landscape) and (max-height: 560px) {
+  .tx-root {
+    height: 100dvh;
+    min-height: 100dvh;
+    padding-top: max(4px, env(safe-area-inset-top));
+    padding-bottom: max(4px, env(safe-area-inset-bottom));
+    padding-left: max(8px, env(safe-area-inset-left));
+    padding-right: max(8px, env(safe-area-inset-right));
+    justify-content: space-between;
+  }
+
+  .tx-main {
+    width: 100%;
+    max-width: none !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
+  }
+
+  .tx-header {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+
+  .tx-account-bar {
+    width: auto !important;
+    flex-wrap: nowrap !important;
+    gap: 5px !important;
+    order: 1 !important;
+  }
+
+  .tx-nickname-pill {
+    min-height: 30px !important;
+    padding: 2px 8px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .tx-session-wrap {
+    order: 2 !important;
+    flex-shrink: 0 !important;
+    width: auto !important;
+  }
+
+  .tx-brand-title {
+    font-size: 1.25rem !important;
+    line-height: 1 !important;
+  }
+
+  .tx-brand-subtitle {
+    font-size: 0.62rem !important;
+    line-height: 1.05 !important;
+    margin-top: 1px !important;
+  }
+
+  .tx-utility-group {
+    order: 3 !important;
+    width: auto !important;
+    flex-wrap: nowrap !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .tx-icon-btn {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  .tx-icon-btn svg {
+    width: 13px !important;
+    height: 13px !important;
+  }
+
+  .tx-hand-btn {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .tx-hand-btn svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  .tx-session-plaque {
+    padding: 2px 7px !important;
+  }
+
+  .tx-session-label {
+    display: none !important;
+  }
+
+  .tx-session-id {
+    font-size: 0.72rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .tx-board-shell {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px !important;
+  }
+
+  .tx-board-inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 17px !important;
+    padding: 6px 14px !important;
+  }
+
+  .tx-countdown-row {
+    margin-bottom: 4px !important;
+    gap: 10px !important;
+  }
+
+  .tx-player-pill {
+    padding: 2px 10px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .tx-countdown-box {
+    min-width: 104px !important;
+    padding: 2px 12px !important;
+  }
+
+  .tx-countdown-num {
+    font-size: 1.45rem !important;
+  }
+
+  .tx-countdown-status {
+    font-size: 0.75rem !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+  }
+
+  /* Force 3-column horizontal arcade layout on ALL phones in landscape */
+  .tx-arena-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .tx-side-col-left {
+    grid-column: span 4 / span 4 !important;
+    order: 1 !important;
+    gap: 5px !important;
+  }
+
+  .tx-bowl-col {
+    grid-column: span 4 / span 4 !important;
+    order: 2 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .tx-side-col-right {
+    grid-column: span 4 / span 4 !important;
+    order: 3 !important;
+    gap: 5px !important;
+  }
+
+  .tx-bowl-dish {
+    width: clamp(146px, 42dvh, 206px) !important;
+    height: clamp(146px, 42dvh, 206px) !important;
+  }
+
+  .tx-dice-row-top {
+    margin-bottom: 4px !important;
+  }
+
+  .tx-dice-row-bottom {
+    gap: 10px !important;
+  }
+
+  .tx-dice-result-shift {
+    transform: translateY(-14px) scale(0.9) !important;
+  }
+
+  .tx-die-body {
+    width: clamp(40px, 11.8dvh, 58px) !important;
+    height: clamp(40px, 11.8dvh, 58px) !important;
+    border-radius: 11px !important;
+    padding: 2px !important;
+  }
+
+  .tx-die-badge {
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 10px !important;
+    bottom: -4px !important;
+    right: -4px !important;
+  }
+
+  .tx-lid-knob {
+    width: 48px !important;
+    height: 48px !important;
+  }
+
+  .tx-lid-knob span {
+    font-size: 11px !important;
+  }
+
+  .tx-lid-hint {
+    padding: 2px 8px !important;
+  }
+
+  .tx-lid-hint span {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+
+  .tx-result-banner {
+    bottom: 6px !important;
+    padding: 2px 10px !important;
+  }
+
+  .tx-result-banner-sub {
+    font-size: 10px !important;
+  }
+
+  .tx-result-banner-title {
+    font-size: 1.05rem !important;
+  }
+
+  .tx-chamber-frame {
+    border-radius: 16px !important;
+  }
+
+  .tx-chamber-inner {
+    border-radius: 14px !important;
+    padding: 8px 8px !important;
+  }
+
+  .tx-chamber-title {
+    font-size: clamp(1.65rem, 6.8dvh, 2.5rem) !important;
+    line-height: 1.05 !important;
+  }
+
+  .tx-chamber-range {
+    font-size: 10px !important;
+    margin-top: 2px !important;
+  }
+
+  .tx-total-pot {
+    margin-top: 3px !important;
+    padding: 1px 8px !important;
+  }
+
+  .tx-total-pot span {
+    font-size: 0.7rem !important;
+  }
+
+  .tx-pot-pill {
+    padding: 2px 10px !important;
+  }
+
+  .tx-pot-text {
+    font-size: 0.78rem !important;
+  }
+
+  .tx-bet-btn {
+    min-height: 34px !important;
+    padding: 4px 12px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .tx-controls-strip {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-top: 6px !important;
+    padding-top: 6px !important;
+    gap: 8px !important;
+    overflow-x: auto !important;
+  }
+
+  .tx-balance-group {
+    flex-wrap: nowrap !important;
+    flex-shrink: 0 !important;
+    gap: 6px !important;
+  }
+
+  .tx-balance-pill,
+  .tx-deposit-btn,
+  .tx-chip-btn {
+    min-height: 30px !important;
+    padding: 3px 9px !important;
+    font-size: 0.72rem !important;
+  }
+
+  .tx-chips-group {
+    flex-wrap: nowrap !important;
+    flex-shrink: 0 !important;
+    gap: 4px !important;
+  }
+
+  .tx-history-section {
+    margin-top: 5px !important;
+  }
+
+  .tx-history-meta {
+    display: none !important;
+  }
+
+  .tx-bead-rail {
+    padding: 4px 10px !important;
+    gap: 4px !important;
+  }
+
+  .tx-bead-item {
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 10px !important;
+  }
+
+  .tx-bead-item-latest {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: 11px !important;
+  }
+
+  .tx-footer {
+    display: flex !important;
+    justify-content: center !important;
+    padding: 0 !important;
+  }
+
+  .tx-withdraw-btn {
+    padding: 2px 24px !important;
+  }
+
+  .tx-withdraw-title {
+    font-size: 1.45rem !important;
+    line-height: 1 !important;
+  }
+
+  .tx-modal-box {
+    max-height: 92dvh !important;
+  }
+
+  .tx-modal-header {
+    padding: 8px 14px !important;
+  }
+
+  .tx-modal-body {
+    max-height: calc(92dvh - 52px) !important;
+    padding: 12px 14px !important;
+  }
+}

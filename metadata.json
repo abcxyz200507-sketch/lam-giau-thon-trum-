@@ -1,0 +1,8 @@
+{
+  "name": "Tài Xỉu Hoàng Gia",
+  "description": "Trò chơi giải trí Tài Xỉu tự động 30 giây mỗi phiên với 3 viên xúc xắc đỏ, hiệu ứng ánh sáng vàng đồng sang trọng và lịch sử kết quả trực quan.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

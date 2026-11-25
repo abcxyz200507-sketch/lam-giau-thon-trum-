@@ -1,0 +1,106 @@
+{
+  "entities": {
+    "PlayerProfile": {
+      "title": "PlayerProfile",
+      "description": "Public game profile and session state for a Tài Xỉu player.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the player.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "username": {
+          "type": "string",
+          "description": "Unique handle or username displayed in the game.",
+          "minLength": 2,
+          "maxLength": 32,
+          "pattern": "^[a-zA-Z0-9_.-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Player display nickname.",
+          "minLength": 1,
+          "maxLength": 24
+        },
+        "balance": {
+          "type": "number",
+          "description": "Current virtual coin balance."
+        },
+        "role": {
+          "type": "string",
+          "description": "Player role.",
+          "enum": ["player"]
+        },
+        "isOnline": {
+          "type": "boolean",
+          "description": "Whether the player currently has an active game session."
+        },
+        "authSource": {
+          "type": "string",
+          "description": "Authentication source.",
+          "enum": ["google"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when player profile was created."
+        },
+        "lastLoginAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the latest login."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of the latest profile update."
+        }
+      },
+      "required": [
+        "uid",
+        "username",
+        "displayName",
+        "balance",
+        "role",
+        "isOnline",
+        "authSource",
+        "createdAt",
+        "lastLoginAt",
+        "updatedAt"
+      ]
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Authorized website owner record.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth UID of the administrator.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp."
+        }
+      },
+      "required": ["uid", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/players/{playerId}": {
+      "schema": { "$ref": "#/entities/PlayerProfile" },
+      "description": "Stores verified player profiles and login timestamps visible to the Website Owner."
+    },
+    "/admins/{adminUid}": {
+      "schema": { "$ref": "#/entities/AdminRecord" },
+      "description": "Stores administrator UIDs authorized to list and manage all players."
+    }
+  }
+}

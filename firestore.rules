@@ -1,0 +1,133 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isBootstrappedAdmin() {
+      return isVerifiedUser() && request.auth.token.email == 'abcxyz200507@gmail.com';
+    }
+
+    function isAdmin() {
+      return isBootstrappedAdmin() || (
+        isVerifiedUser() && exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidPlayerProfile(data, playerId) {
+      return data.keys().hasAll([
+        'uid',
+        'username',
+        'displayName',
+        'balance',
+        'role',
+        'isOnline',
+        'authSource',
+        'createdAt',
+        'lastLoginAt',
+        'updatedAt'
+      ])
+      && data.keys().hasOnly([
+        'uid',
+        'username',
+        'displayName',
+        'balance',
+        'role',
+        'isOnline',
+        'authSource',
+        'createdAt',
+        'lastLoginAt',
+        'updatedAt'
+      ])
+      && isValidId(data.uid)
+      && data.uid == playerId
+      && data.username is string
+      && data.username.size() >= 2
+      && data.username.size() <= 32
+      && data.username.matches('^[a-zA-Z0-9_.-]+$')
+      && data.displayName is string
+      && data.displayName.size() >= 1
+      && data.displayName.size() <= 24
+      && data.balance is number
+      && data.balance >= 0
+      && data.role == 'player'
+      && data.isOnline is bool
+      && data.authSource == 'google'
+      && data.createdAt is timestamp
+      && data.lastLoginAt is timestamp
+      && data.updatedAt is timestamp;
+    }
+
+    match /players/{playerId} {
+      allow get: if isSignedIn() && isValidId(playerId) && (isOwner(playerId) || isAdmin());
+      allow list: if isSignedIn() && (isBootstrappedAdmin() || existing().uid == request.auth.uid);
+
+      allow create: if isSignedIn()
+        && isVerifiedUser()
+        && isValidId(playerId)
+        && isOwner(playerId)
+        && isValidPlayerProfile(incoming(), playerId)
+        && incoming().uid == request.auth.uid
+        && incoming().createdAt == request.time
+        && incoming().lastLoginAt == request.time
+        && incoming().updatedAt == request.time;
+
+      allow update: if isSignedIn()
+        && isVerifiedUser()
+        && isValidId(playerId)
+        && isValidPlayerProfile(incoming(), playerId)
+        && incoming().uid == existing().uid
+        && incoming().username == existing().username
+        && incoming().createdAt == existing().createdAt
+        && incoming().role == existing().role
+        && incoming().authSource == existing().authSource
+        && incoming().updatedAt == request.time
+        && (
+          isAdmin() || (
+            isOwner(playerId)
+            && incoming().diff(existing()).affectedKeys().hasOnly([
+              'displayName',
+              'balance',
+              'isOnline',
+              'lastLoginAt',
+              'updatedAt'
+            ])
+          )
+        );
+
+      allow delete: if isSignedIn() && isValidId(playerId) && isAdmin();
+    }
+
+    match /admins/{adminUid} {
+      allow get: if isSignedIn() && isValidId(adminUid) && (isOwner(adminUid) || isBootstrappedAdmin());
+      allow list, create, update, delete: if false;
+    }
+  }
+}
